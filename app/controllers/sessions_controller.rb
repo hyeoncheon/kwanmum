@@ -6,8 +6,30 @@ class SessionsController < ApplicationController
     ai[:omniauth] = omniauth
     logger.debug("DEBUG info: --#{ai.to_xml}--")
 
-    # for test purpose. edit below for real action.
-    render :xml => ai.to_xml
+    #render :xml => ai.to_xml
+    unless @user = User.find_by_siso_uid(ai[:uid])
+      @user = User.create(siso_uid: ai[:uid], siso_gid: ai[:gid],
+                          siso_active: ai[:active],
+                          name: ai[:name], mail: ai[:email], image: ai[:image])
+      flash[:notice] = "New user for #{@user.mail} registered!"
+    else
+      # update user informations from siso.
+      @user.siso_gid = ai[:gid]
+      @user.siso_active = ai[:active]
+      @user.name = ai[:name]
+      @user.mail = ai[:email]
+      @user.image = ai[:image]
+      @user.save
+      flash[:notice] = "welcome #{@user.name}!"
+    end
+    session[:user] = @user.id
+    session[:name] = @user.name
+    session[:mail] = @user.mail
+
+    logger.debug("DEBUG cookie_origin: #{cookies[:siso_oauth_origin]}")
+    next_path = cookies[:siso_oauth_origin] || root_path
+    cookies.delete :siso_oauth_origin
+    redirect_to next_path
   end
 
   def failure
