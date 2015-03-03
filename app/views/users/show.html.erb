@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Mail:</strong>
+  <%= @user.mail %>
+</p>
+
+<p>
+  <strong>Roles:</strong>
+  <%= @user.roles %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @user.image %>
+</p>
+
+<p>
+  <strong>Siso uid:</strong>
+  <%= @user.siso_uid %>
+</p>
+
+<p>
+  <strong>Siso gid:</strong>
+  <%= @user.siso_gid %>
+</p>
+
+<p>
+  <strong>Siso active:</strong>
+  <%= @user.siso_active %>
+</p>
+
+<p>
+  <strong>Last seen:</strong>
+  <%= @user.last_seen %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
