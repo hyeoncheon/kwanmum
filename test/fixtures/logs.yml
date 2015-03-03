@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: MyString
+  level: MyString
+  time: 2015-03-03 18:40:40
+  service: MyString
+  hostname: MyString
+  process: MyString
+  message: MyString
+  actor: MyString
+  action: MyString
+  target: MyString
+  reason: MyString
+  tag: MyString
+  client_id: 
+  client_type: Client
+
+two:
+  category: MyString
+  level: MyString
+  time: 2015-03-03 18:40:40
+  service: MyString
+  hostname: MyString
+  process: MyString
+  message: MyString
+  actor: MyString
+  action: MyString
+  target: MyString
+  reason: MyString
+  tag: MyString
+  client_id: 
+  client_type: Client

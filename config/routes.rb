@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
  scope '/kwanmun' do
-  resources :servers
+  resources :logs
+  resources :servers do
+    resources :logs
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
