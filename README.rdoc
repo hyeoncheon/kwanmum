@@ -1,28 +1,12 @@
-== README
+== Kwanmun
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Kwanmun(관문; 關門) is API Gateway for Hyeoncheon Family.
 
-Things you may want to cover:
+It provides features below.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Authentication/Authorization for incoming API calls.
+* Centuralized Logging and Audit.
+* API Aggregation ans Protocol Gateway.
+* Quality of Service.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
