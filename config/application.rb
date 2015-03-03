@@ -20,7 +20,12 @@ module Kwanmun
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # app specific config
+    config.relative_url_root = '/kwanmun'
+    config.assets.prefix = '/kwanmun/assets'
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+# vim: set ts=2 sw=2 expandtab:

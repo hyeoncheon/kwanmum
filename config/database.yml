@@ -20,6 +20,9 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
+  host: <%= ENV['KWANMUN_DATABASE_HOSTNAME'] %>
+  username: <%= ENV['KWANMUN_DATABASE_USERNAME'] %>
+  password: <%= ENV['KWANMUN_DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
@@ -81,5 +84,3 @@ test:
 production:
   <<: *default
   database: kwanmun_production
-  username: kwanmun
-  password: <%= ENV['KWANMUN_DATABASE_PASSWORD'] %>
