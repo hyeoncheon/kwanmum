@@ -16,5 +16,18 @@ class ApplicationController < ActionController::Base
       redirect_to signin_path
     end
   end
+
+  def activity_log(category, level, how, what, message, why='', tags='')
+    if current_user
+      who = current_user.name
+      now = Time.now
+      where = env['HTTP_X_FORWARDED_FOR']
+      process = env['HTTP_USER_AGENT']
+      current_user.logs.create(
+        category: category, level: level, time: now, service: 'kwanmun',
+        process: process, message: message, hostname: where,
+        actor: who, action: how, target: what, reason: why, tag: tags)
+    end
+  end
 end
 # vim: set ts=2 sw=2 expandtab:

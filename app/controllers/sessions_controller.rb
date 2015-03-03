@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
                           siso_active: ai[:active],
                           name: ai[:name], mail: ai[:email], image: ai[:image])
       flash[:notice] = "New user for #{@user.mail} registered!"
+      activity_log 'auth', 'info', 'register uid', @user.id, flash[:notice]
     else
       # update user informations from siso.
       @user.siso_gid = ai[:gid]
@@ -21,6 +22,7 @@ class SessionsController < ApplicationController
       @user.image = ai[:image]
       @user.save
       flash[:notice] = "welcome #{@user.name}!"
+      activity_log 'auth', 'info', 'login uid', @user.id, flash[:notice]
     end
     session[:user] = @user.id
     session[:name] = @user.name
