@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# vim: set ts=4 sw=4:
+
+hostname=current.skcc.com
+
+url_root="http://$hostname/kwanmun"
+url_log_api="$url_root/api/v1/logs"
+
+POST_HEADER="Content-Type: application/json"
+LOG_DATA='{"log": { "category":"boot", "level":"info", "time":"2015-02-26 07:59:00", "service":"test.skcc.com", "hostname":"skcc-testdb1", "process":"kernel", "message":"system reboot", "actor":"system", "action":"reboot", "target":"system", "reason":"Planed Maintenance", "tag":"IR-93029"} }'
+
+case "$1" in
+	post_log)
+		ret=`curl -s -X POST -H "$POST_HEADER" -d "$LOG_DATA" $url_log_api`
+		status=$?
+		;;
+	*)
+		echo "usage: $0 <post_log>"
+		exit 1
+		;;
+esac
+
+if [ "$status" = "0" ]; then
+	echo "OK: $ret"
+else
+	echo "FAIL: $ret"
+fi

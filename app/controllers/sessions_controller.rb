@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :login_required, except: :create
+
   def create
     omniauth = request.env['omniauth.auth']
     ai = omniauth[:info].clone
@@ -21,12 +23,12 @@ class SessionsController < ApplicationController
       @user.mail = ai[:email]
       @user.image = ai[:image]
       @user.save
-      flash[:notice] = "welcome #{@user.name}!"
-      activity_log 'auth', 'info', 'login uid', @user.id, flash[:notice]
+      flash[:notice] = "Welcome #{@user.name}!"
     end
     session[:user] = @user.id
     session[:name] = @user.name
     session[:mail] = @user.mail
+    activity_log 'auth', 'info', 'login uid', @user.id, flash[:notice]
 
     logger.debug("DEBUG cookie_origin: #{cookies[:siso_oauth_origin]}")
     next_path = cookies[:siso_oauth_origin] || root_path

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :login_required
 
   private
   def current_user
@@ -18,15 +19,21 @@ class ApplicationController < ActionController::Base
   end
 
   def activity_log(category, level, how, what, message, why='', tags='')
+    now = Time.now
+    where = env['HTTP_X_FORWARDED_FOR']
+    process = env['HTTP_USER_AGENT']
     if current_user
       who = current_user.name
-      now = Time.now
-      where = env['HTTP_X_FORWARDED_FOR']
-      process = env['HTTP_USER_AGENT']
       current_user.logs.create(
         category: category, level: level, time: now, service: 'kwanmun',
         process: process, message: message, hostname: where,
         actor: who, action: how, target: what, reason: why, tag: tags)
+    else
+      Log.create(
+        category: category, level: 'error', time: now, service: 'kwanmun',
+        process: process, message: message, hostname: where,
+        actor: 'Bug', action: how, target: what, reason: why, tag: tags)
+      puts "ERROR"
     end
   end
 end
