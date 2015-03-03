@@ -8,6 +8,12 @@ Rails.application.routes.draw do
     resources :logs
   end
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :logs
+    end
+  end
+
   ### hyeoncheon.siso
   get '/auth/siso', as: :signin
   get '/auth/:provider/callback', to: 'sessions#create'
