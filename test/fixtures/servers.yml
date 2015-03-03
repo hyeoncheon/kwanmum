@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uuid: MyString
+  hostname: MyString
+  address: MyString
+  description: MyString
+  api_key: MyString
+
+two:
+  uuid: MyString
+  hostname: MyString
+  address: MyString
+  description: MyString
+  api_key: MyString
