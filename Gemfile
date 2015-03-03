@@ -43,3 +43,5 @@ group :development, :test do
   gem 'spring'
 end
 
+# gems for application logic
+gem 'omniauth-oauth2'

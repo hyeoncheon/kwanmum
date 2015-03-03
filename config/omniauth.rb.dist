@@ -1,0 +1,8 @@
+# Load the Rails application.
+
+SISO_APP_ID = "app_id from siso 0af2159c1b735c9511df..."
+SISO_SECRET = "secret from siso ab1c293db193a1e114ac..."
+SISO_SITE = "http://sandbox.example.com"
+SISO_AUTHORIZE_URL = "/siso/oauth/authorize"
+SISO_TOKEN_URL = "/siso/oauth/token"
+SISO_PREFIX = "/appname/auth"

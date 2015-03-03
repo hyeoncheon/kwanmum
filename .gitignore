@@ -14,3 +14,4 @@
 
 ### custom entries
 /config/application.yml
+/config/omniauth.rb
