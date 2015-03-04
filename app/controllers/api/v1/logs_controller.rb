@@ -12,7 +12,7 @@ class Api::V1::LogsController < Api::ApiController
 
   # POST /logs.json
   def create
-    @log = Log.new(log_params)
+    @log = @client.logs.new(log_params)
 
     respond_to do |format|
       if @log.save
