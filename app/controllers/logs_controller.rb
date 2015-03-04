@@ -1,5 +1,5 @@
 class LogsController < ApplicationController
-  before_action :set_log, only: [:show, :edit, :update, :destroy]
+  before_action :set_log, only: [:show, :update]
 
   # GET /logs
   # GET /logs.json
@@ -10,15 +10,6 @@ class LogsController < ApplicationController
   # GET /logs/1
   # GET /logs/1.json
   def show
-  end
-
-  # GET /logs/new
-  def new
-    @log = Log.new
-  end
-
-  # GET /logs/1/edit
-  def edit
   end
 
   # POST /logs
@@ -51,24 +42,13 @@ class LogsController < ApplicationController
     end
   end
 
-  # DELETE /logs/1
-  # DELETE /logs/1.json
-  def destroy
-    @log.destroy
-    respond_to do |format|
-      format.html { redirect_to logs_url, notice: 'Log was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_log
       @log = Log.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def log_params
       params.require(:log).permit(:category, :level, :time, :service, :hostname, :process, :message, :actor, :action, :target, :reason, :tag, :client_id, :client_type)
     end
 end
+# vim: set ts=2 sw=2 expandtab:

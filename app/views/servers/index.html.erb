@@ -5,12 +5,12 @@
 <table>
   <thead>
     <tr>
-      <th>Uuid</th>
+      <th>UUID</th>
       <th>Hostname</th>
       <th>Address</th>
       <th>Description</th>
-      <th>Api key</th>
-      <th colspan="3"></th>
+      <th>API Key</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -18,18 +18,21 @@
     <% @servers.each do |server| %>
       <tr>
         <td><%= server.uuid %></td>
-        <td><%= server.hostname %></td>
-        <td><%= server.address %></td>
+        <td class="tac"><%= link_to server.hostname, server %></td>
+        <td class="tac"><%= server.address %></td>
         <td><%= server.description %></td>
-        <td><%= server.api_key %></td>
-        <td><%= link_to 'Show', server %></td>
-        <td><%= link_to 'Edit', edit_server_path(server) %></td>
-        <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="tac"><%= server.api_key.truncate(16) %></td>
+        <td>
+          <%= link_to edit_server_path(server) do
+          %><span class="icn-gear"></span><% end %>
+          <%= link_to server, method: :delete,
+            data: { confirm: 'Are you sure to delete server?' } do
+          %><span class="icn-bin"></span><% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Server', new_server_path %>
+<%# vim: set ts=2 sw=2 expandtab: %>

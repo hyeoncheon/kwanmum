@@ -12,38 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :mail %><br>
-    <%= f.text_field :mail %>
-  </div>
-  <div class="field">
-    <%= f.label :roles %><br>
+    <%= f.label :roles %>
     <%= f.text_field :roles %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.text_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :siso_uid %><br>
-    <%= f.number_field :siso_uid %>
-  </div>
-  <div class="field">
-    <%= f.label :siso_gid %><br>
-    <%= f.number_field :siso_gid %>
-  </div>
-  <div class="field">
-    <%= f.label :siso_active %><br>
-    <%= f.check_box :siso_active %>
-  </div>
-  <div class="field">
-    <%= f.label :last_seen %><br>
-    <%= f.datetime_select :last_seen %>
-  </div>
-  <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

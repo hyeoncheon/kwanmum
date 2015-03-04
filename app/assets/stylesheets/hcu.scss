@@ -1,0 +1,197 @@
+/* vim: set ts=2 sw=2:
+ *
+ */
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600);
+@import url(http://hyeoncheon.github.io/icons/style.css);
+
+$image-orion: url(https://hyeoncheon.github.io/images/orion.png);
+
+$font-family: "Titillium Web", "맑은 고딕", "Malgun Gothic";
+$font-size: 11pt;
+$font-mini: 0.8em;
+$font-small: 0.9em;
+$font-big: 1.2em;
+
+$color-light: #cccccc;
+$color-text: #999999;
+$color-pale: #555555;
+$color-link: #ff0000;
+$color-link-hover: #c96293;
+$color-border: $color-pale;
+
+$color-background: #000000;
+$color-dialog: #444444;
+$color-trh-background: $color-background + #303030;
+$color-trd-background: $color-background + #202020;
+
+$box-shadow: 0 2px 6px rgba(70,70,70,0.7);
+
+/*
+$background-body: #f9f9f9;
+$background-header: #000;
+$background-menubar: rgba(255,40,80,0.6);
+$background-footer: #f0f0f0;
+$background-table: #fff;
+$background-active: rgba(255,40,120,0.2);
+$background-widget: #fafafa;
+
+
+$border-color-default: #999;
+$mid-z-index: 100;
+
+$color-header: white;
+$header-height: 70px;
+//$box-shadow-header: 0 2px 3px #777;
+$footer-height: 50px;
+$logo-size-footer: 72px;
+$box-margin: 12px;
+//$box-shadow-footer: 0 0 8px rgba(255,100,140,0.4);
+$box-shadow: 0 2px 6px rgba(70,70,70,0.9);
+
+
+$color-error: #fff !important;
+$color-warn: #fff !important;
+$color-locked: #bbb;
+$background-error: #f00 !important;
+$background-warn: #ffdada !important;
+
+$input-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+$widget-border: 1px solid #ccc;
+$widget-active-background: #eee; 
+$widget-active-box-shadow: 0 3px 5px rgba(0,0,0,0.1) inset;
+*/
+
+/* what? */
+/*
+$inp-trans: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+*/
+
+
+
+/*** common tags	--------------------------------------------------------- */
+html {
+	height: 100%;
+	background: $color-background;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: $font-family;
+	font-size: $font-size;
+	height: 100%;
+	color: $color-text;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $font-family;
+	font-weight: 600;
+	margin: 0;
+}
+
+a, a:visited {
+	text-decoration: none;
+	color: inherit;
+	&:hover { color: $color-link-hover; }
+	&.hl {
+		color: $color-link;
+	}
+}
+
+p { margin: 0; }
+
+table {
+	width: 100%;
+	font-size: $font-small;
+	border-spacing: 0;
+	thead {
+		tr {
+			background: $color-trh-background;
+			th {
+				border-top: 1px solid $color-border;
+				border-bottom: 1px solid $color-border;
+			}
+		}
+	}
+	tbody {
+		tr {
+			background: $color-trd-background;
+			td {
+				border-bottom: 1px solid $color-border;
+			}
+		}
+	}
+}
+
+/*** decoration/style			------------------------------------------------- */
+.tal { text-align: left; }
+.tac { text-align: center; }
+.tar { text-align: right; }
+
+.user-thumbnail { height: 32px; vertical-align: middle; }
+
+
+/*** widget */
+button, input, select, textarea {
+	font-family: inherit;
+	font-size: $font-small;
+}
+
+/*** site structure	------------------------------------------------------- */
+$page-logo-size: 150px;
+
+.body-wrapper {
+	height: auto !important;
+	min-height: 100%;
+	margin: 0 auto -75px;
+
+	background-image: $image-orion;
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	background-size: $page-logo-size auto;
+
+	.mainpage {
+		padding: 10px;
+		.hc.debug {
+		}
+		.hc.paragraph {
+			padding: 0 0 1em;
+		}
+	}
+	.tail-placeholder {
+		height: $page-logo-size + 10px;
+		clear: both;
+	}
+}
+.sticky-footer {
+	border-top: 1px solid $color-border;
+	margin: 0 150px 0 10px; padding: 5px 0;
+}
+
+
+/*** hyeoncheon style	----------------------------------------------------- */
+.hc.dialog.box {
+	max-width: 480px;
+	margin: 120px auto;
+	text-align: center;
+	color: $color-light;
+	background: $color-dialog;
+	border: 2px solid $color-dialog - #404040;
+	box-shadow: $box-shadow;
+	.hc.dialog.title {
+		font-weight: bold;
+		font-size: $font-big;
+		background: $color-dialog - #404040;
+		line-height: $font-big + 0.2em;
+		margin: 0;
+	}
+	.hc.dialog.body {
+		padding: 25px 30px;
+	}
+}
+
+
+/*** misc, bugfix, overrides ---------------------------------------------- */
+* {
+	box-sizing: border-box;
+}
