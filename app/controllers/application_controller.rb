@@ -18,22 +18,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def activity_log(category, level, how, what, message, why='', tags='')
+  def activity_log(cat, level, message, how=nil, what=nil, why=nil, tags=nil)
     now = Time.now
     where = env['HTTP_X_FORWARDED_FOR']
     process = env['HTTP_USER_AGENT']
     if current_user
       who = current_user.name
       current_user.logs.create(
-        category: category, level: level, time: now, service: 'kwanmun',
+        category: cat, level: level, time: now, service: :kwanmun,
         process: process, message: message, hostname: where,
         actor: who, action: how, target: what, reason: why, tag: tags)
     else
-      Log.create(
-        category: category, level: 'error', time: now, service: 'kwanmun',
+      sys = Server.find_by_address('127.0.0.1')
+      sys.logs.create(
+        category: cat, level: :error, time: now, service: :kwanmun,
         process: process, message: message, hostname: where,
-        actor: 'Bug', action: how, target: what, reason: why, tag: tags)
-      puts "ERROR"
+        actor: :bug, action: how, target: what, reason: why, tag: tags)
     end
   end
 end

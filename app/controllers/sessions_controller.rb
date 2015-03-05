@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
                           siso_active: ai[:active],
                           name: ai[:name], mail: ai[:email], image: ai[:image])
       flash[:notice] = "New user for #{@user.mail} registered!"
-      activity_log 'auth', 'info', 'register uid', @user.id, flash[:notice]
+      activity_log :auth, :info, flash[:notice], 'user#create', @user.id
     else
       # update user informations from siso.
       @user.siso_gid = ai[:gid]
@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
     session[:user] = @user.id
     session[:name] = @user.name
     session[:mail] = @user.mail
-    activity_log 'auth', 'info', 'login uid', @user.id, flash[:notice]
+    activity_log :auth, :info, 'user logged in', :login, @user.id
 
     logger.debug("DEBUG cookie_origin: #{cookies[:siso_oauth_origin]}")
     next_path = cookies[:siso_oauth_origin] || root_path
