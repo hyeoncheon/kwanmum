@@ -1,10 +1,16 @@
 class LogsController < ApplicationController
-  before_action :set_log, only: [:show, :update]
+  before_action :set_log, only: [:show, :update, :dismiss]
 
   # GET /logs
   # GET /logs.json
   def index
-    @logs = Log.all
+    if params[:server_id]
+      @logs = Server.find(params[:server_id]).logs
+    elsif params[:user_id]
+      @logs = User.find(params[:user_id]).logs
+    else
+      @logs = Log.all
+    end
   end
 
   # GET /logs/1
@@ -12,20 +18,10 @@ class LogsController < ApplicationController
   def show
   end
 
-  # POST /logs
-  # POST /logs.json
-  def create
-    @log = Log.new(log_params)
-
-    respond_to do |format|
-      if @log.save
-        format.html { redirect_to @log, notice: 'Log was successfully created.' }
-        format.json { render :show, status: :created, location: @log }
-      else
-        format.html { render :new }
-        format.json { render json: @log.errors, status: :unprocessable_entity }
-      end
-    end
+  # PUT /logs/1/dismiss
+  def dismiss
+    @log.toggle!(:dismissed)
+    redirect_to env['HTTP_REFERER'], notice: 'Dismissed'
   end
 
   # PATCH/PUT /logs/1

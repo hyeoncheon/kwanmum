@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303175147) do
+ActiveRecord::Schema.define(version: 20150306084233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,9 @@ ActiveRecord::Schema.define(version: 20150303175147) do
     t.string   "tag"
     t.integer  "client_id"
     t.string   "client_type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "dismissed",   default: false
   end
 
   add_index "logs", ["client_type", "client_id"], name: "index_logs_on_client_type_and_client_id", using: :btree

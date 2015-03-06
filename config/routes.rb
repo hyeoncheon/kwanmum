@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
  scope '/kwanmun' do
-  resources :logs
-  resources :servers do
+  concern :client do
     resources :logs
   end
-  resources :users do
-    resources :logs
+
+  resources :logs do
+    put :dismiss, on: :member
   end
+  resources :servers, concerns: :client
+  resources :users, concerns: :client
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do

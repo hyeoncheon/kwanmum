@@ -34,7 +34,7 @@
         <td><%= log.target %></td>
         <td><%= log.tag %></td>
         <td><%= link_to log.client.name, log.client if log.client %></td>
-        <td><%= link_to log, method: :put,
+        <td><%= link_to dismiss_log_path(log), method: :put,
           data: { confirm: 'Are you sure?' } do %><span
               class="icn-check"></span><% end %></td>
       </tr>

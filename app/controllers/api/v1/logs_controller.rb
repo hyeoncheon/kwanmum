@@ -3,7 +3,11 @@ class Api::V1::LogsController < Api::ApiController
 
   # GET /logs.json
   def index
-    @logs = Log.all
+    if @client
+      @logs = @client.logs
+    else
+      @logs = Log.all
+    end
   end
 
   # GET /logs/1.json
