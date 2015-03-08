@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306084233) do
+ActiveRecord::Schema.define(version: 20150308155815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accesses", force: :cascade do |t|
+    t.string   "description"
+    t.integer  "client_id"
+    t.string   "client_type"
+    t.integer  "service_id"
+    t.text     "permissions"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "accesses", ["client_type", "client_id"], name: "index_accesses_on_client_type_and_client_id", using: :btree
+  add_index "accesses", ["service_id"], name: "index_accesses_on_service_id", using: :btree
 
   create_table "logs", force: :cascade do |t|
     t.string   "category"
@@ -51,6 +64,15 @@ ActiveRecord::Schema.define(version: 20150306084233) do
   add_index "servers", ["api_key"], name: "index_servers_on_api_key", unique: true, using: :btree
   add_index "servers", ["uuid"], name: "index_servers_on_uuid", unique: true, using: :btree
 
+  create_table "services", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "base_url"
+    t.boolean  "is_public"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "mail"
@@ -67,4 +89,5 @@ ActiveRecord::Schema.define(version: 20150306084233) do
 
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
 
+  add_foreign_key "accesses", "services"
 end

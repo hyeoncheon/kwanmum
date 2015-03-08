@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @access.description %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @access.client %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @access.service %>
+</p>
+
+<p>
+  <strong>Permissions:</strong>
+  <%= @access.permissions %>
+</p>
+
+<%= link_to 'Edit', edit_access_path(@access) %> |
+<%= link_to 'Back', accesses_path %>

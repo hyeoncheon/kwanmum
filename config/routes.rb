@@ -2,6 +2,7 @@ Rails.application.routes.draw do
  scope '/kwanmun' do
   concern :client do
     resources :logs
+    resources :accesses
   end
 
   resources :logs do
@@ -9,6 +10,10 @@ Rails.application.routes.draw do
   end
   resources :servers, concerns: :client
   resources :users, concerns: :client
+
+  resources :services do
+    resources :accesses
+  end
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
