@@ -16,8 +16,13 @@
     <%= f.text_field :uuid %>
     <%= f.label :hostname %>
     <%= f.text_field :hostname %>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
     <%= f.label :description %>
     <%= f.text_field :description %>
     <%= f.submit %>
+  </div>
+  <div class="field">
+    If you need UUID, using it! --- <%= SecureRandom.uuid %>
   </div>
 <% end %>

@@ -22,7 +22,8 @@ module ClientMethods
   private
   def generate_api_key
     begin
-      self.api_key = Digest::SHA256.new.update(SecureRandom.base64).to_s
+      self.api_key = self.class.name[0].downcase
+      self.api_key += Digest::SHA256.new.update(SecureRandom.base64).to_s
     end while self.class.exists?(api_key: api_key)
   end
 end

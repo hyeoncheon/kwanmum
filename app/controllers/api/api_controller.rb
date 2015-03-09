@@ -1,6 +1,6 @@
 class Api::ApiController < ActionController::Base
   before_action :token_required
-  after_action :service_log
+  before_action :service_log
 
   def log(category, level, tm, process, message, where, how, what, why, tags)
     if @client
@@ -11,9 +11,9 @@ class Api::ApiController < ActionController::Base
     else
       sys = Server.find_by_address('127.0.0.1')
       sys.logs.create(
-        category: category, level: :error, time: tm, service: :kwanmun,
+        category: category, level: level, time: tm, service: :kwanmun,
         process: process, message: message, hostname: where,
-        actor: :bug, action: how, target: what, reason: why, tag: tags)
+        actor: :internal, action: how, target: what, reason: why, tag: tags)
     end
   end
 
@@ -38,27 +38,34 @@ class Api::ApiController < ActionController::Base
 
   protected
   def token_required
-    client_addr = env['HTTP_X_FORWARDED_FOR']
-    unless @client = Server.find_by_address(client_addr)
-      @client = Server.create(address: client_addr)
-      api_log(:info, 'server#create', @client.id, 'register', 'first request')
-    end
-
-    if authenticate_token
-      api_log(:debug, 'authenticate', @client.id, 'valid authentication.')
-    else
-      api_log(:error, 'authenticate', @client.id, 'invalid authentication.')
-      render_unauthorized
-    end
+    authenticate || render_unauthorized
   end
 
-  def authenticate_token
+  def authenticate
+    client_addr = env['HTTP_X_FORWARDED_FOR']
     authenticate_with_http_token do |token, options|
-      @client.is_authorized?(token)
+      if @client = User.find_by_api_key(token)
+        api_log(:verbose, nil, @client.id, 'user authenticated')
+      elsif client = Server.find_by_address(client_addr)
+        if client.is_authorized?(token)
+          @client = client
+          api_log(:verbose, nil, @client.id, 'server authenticated')
+        end
+      else
+        net = ENV['TRUSTED_NETWORK'].split('.')
+        if client_addr.split('.')[0..net.size - 1] == net
+          client = Server.create(address: client_addr)
+          api_log(:info, 'server#create', client.id, nil, 'trusted net')
+        end
+      end
     end
+    @client
   end
 
   def render_unauthorized
+    client_addr = env['HTTP_X_FORWARDED_FOR']
+    api_log(:error, nil, client_addr, 'unauthorized access')
+
     self.headers['WWW-Authenticate'] = 'Token realm="Kwanmun"'
     render json: error(401, :unauthorized), status: :unauthorized
   end
