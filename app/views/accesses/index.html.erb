@@ -17,8 +17,8 @@
     <% @accesses.each do |access| %>
       <tr>
         <td><%= access.description %></td>
-        <td><%= access.client %></td>
-        <td><%= access.service %></td>
+        <td><%= access.client.name %></td>
+        <td><%= access.service.name %></td>
         <td><%= access.permissions %></td>
         <td><%= link_to 'Show', access %></td>
         <td><%= link_to 'Edit', edit_access_path(access) %></td>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Access', new_access_path %>
+<%#= link_to 'New Access', new_service_access_path %>

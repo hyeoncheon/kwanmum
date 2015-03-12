@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :logs
+      get 's/:service_name/*path', to: 'gateway#get'
+      post 's/:service_name/*path', to: 'gateway#post'
+      put 's/:service_name/*path', to: 'gateway#put'
+      delete 's/:service_name/*path', to: 'gateway#delete'
     end
   end
 

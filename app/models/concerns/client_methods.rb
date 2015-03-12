@@ -3,6 +3,8 @@ module ClientMethods
 
   included do
     has_many :logs, as: :client
+    has_many :accesses, as: :client
+    has_many :services, through: :accesses
     before_create :generate_api_key
   end
 

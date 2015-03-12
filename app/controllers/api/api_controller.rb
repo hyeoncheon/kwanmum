@@ -2,7 +2,8 @@ class Api::ApiController < ActionController::Base
   before_action :token_required
   before_action :service_log
 
-  def log(category, level, tm, process, message, where, how, what, why, tags)
+  def log(category, level, process, message, where, how, what, why, tags)
+    tm = Time.now
     if @client
       @client.logs.create(
         category: category, level: level, time: tm, service: :kwanmun,
@@ -17,12 +18,20 @@ class Api::ApiController < ActionController::Base
     end
   end
 
-  def api_log(level, action, target, mesg=nil, why=nil, tags=nil)
-    category = 'api'
-    now = Time.now
+  def gateway_log(mesg, result, tags=nil)
     where = env['HTTP_X_FORWARDED_FOR']
     process = env['HTTP_USER_AGENT']
-    log(category, level, now, process, mesg, where, action, target, why, tags)
+    service = params[:service_name]
+    action = params[:path]
+    target = result
+    log(:gateway, :info, process, mesg, where, action, target, nil, tags)
+  end
+
+  def api_log(level, action, target, mesg=nil, why=nil, tags=nil)
+    category = 'api'
+    where = env['HTTP_X_FORWARDED_FOR']
+    process = env['HTTP_USER_AGENT']
+    log(category, level, process, mesg, where, action, target, why, tags)
   end
 
   def service_log(mesg=nil, why=nil, tags=nil)
@@ -30,10 +39,9 @@ class Api::ApiController < ActionController::Base
     level = 'info'
     action = env['REQUEST_METHOD'] + ' ' + env['PATH_INFO']
     target = env['QUERY_STRING']
-    now = Time.now
     where = env['HTTP_X_FORWARDED_FOR']
     process = env['HTTP_USER_AGENT']
-    log(category, level, now, process, mesg, where, action, target, why, tags)
+    log(category, level, process, mesg, where, action, target, why, tags)
   end
 
   protected
