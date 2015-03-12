@@ -8,11 +8,9 @@
       <th>Cat</th>
       <th>Lev</th>
       <th>Time</th>
-      <th>Host(Svc)</th>
+      <th>Host [Svc]</th>
       <th>Process</th>
-      <th>Message</th>
-      <th>Actor</th>
-      <th>Action(Reason)</th>
+      <th>Message [Actor> Action(Reason)]</th>
       <th>Target</th>
       <th>Tag</th>
       <th>Client</th>
@@ -28,10 +26,8 @@
         <td><%= log.time.localtime.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td title="<%= log.service %>"><%= log.hostname %></td>
         <td title="<%= log.process %>"><%= log.process.truncate(10) %></td>
-        <td><%= link_to log.message, log %></td>
-        <td><%= log.actor %></td>
-        <td title="<%= log.reason %>"><%= log.action %></td>
-        <td><%= log.target %></td>
+        <td title="<%= log.mesg_generated %>"><%= link_to log.mesg, log %></td>
+        <td title="<%= log.target %>"><%= log.target.truncate(10) %></td>
         <td><%= log.tag %></td>
         <td><%= link_to log.client.name, log.client if log.client %></td>
         <td><%= link_to dismiss_log_path(log), method: :put,

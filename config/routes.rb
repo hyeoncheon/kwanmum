@@ -1,17 +1,16 @@
 Rails.application.routes.draw do
  scope '/kwanmun' do
   concern :client do
-    resources :logs
+    resources :logs, shallow: :true do
+      put :dismiss, on: :member
+    end
     resources :accesses
   end
 
-  resources :logs do
-    put :dismiss, on: :member
-  end
-  resources :servers, concerns: :client
-  resources :users, concerns: :client
+  resources :servers, concerns: :client, shallow: :true
+  resources :users, concerns: :client, shallow: :true
 
-  resources :services do
+  resources :services, shallow: :true do
     resources :accesses
   end
 
